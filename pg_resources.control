@@ -1,6 +1,0 @@
-#extesion
-comment = 'Extension to get information server resources: CPU, MEM, Partitions, SO, postgres process, etc'
-default_version = '0.1.0'
-relocatable = true
-superuser = false
-requires = 'file_fdw'
