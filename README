@@ -1,0 +1,45 @@
+resources  extension
+======================================
+
+This PostgreSQL extension implements  tables and views  to get information about server resources : CPU, RAM, partitions, SO, etc 
+#required PG10+, file_fdw extension and linux SO
+
+IMPORTANT: There're bugs in the existing version, please contact to me.
+
+
+Building and install
+--------
+Run: make install 
+In postgresql execute: CREATE EXTENSION resources CASCADE;
+
+
+--It create schema resources
+              
+
+
+
+
+Example of use
+-------
+
+--TABLES:
+resources.cpu_loadavg  -- CPU use on last 1, 5 y 10 minutes
+resources.cpu_use      -- CPU use by user, sys, nice, idle, wait
+resources.distribution -- SO distribution
+resources.lscpu        -- CPU characteristics
+resources.meminfo      -- MEM RAM use
+resources.partitions   -- HDD partitions use
+resources.ps_postgres  -- PG process data to build v_ps_postgre view
+
+
+
+
+
+--VIEWS:
+
+resources.v_ps_postgres-- View to show PG process (PID, CPU_percent, mem_percent, IP, state, query, backend type)
+
+
+Anthony R. Sotolongo leon
+asotolongo@gmail.com
+
