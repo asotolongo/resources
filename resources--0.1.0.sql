@@ -90,6 +90,19 @@ COMMENT ON FOREIGN TABLE resources.ps_postgres
   IS 'PG process data to build v_ps_postgre view';
 
 
+CREATE FOREIGN TABLE resources.ps_postgresv2
+   (pid character varying ,
+    users character varying ,
+    cpu_percent character varying ,
+    mem_percent character varying )
+   SERVER fs
+   OPTIONS (program 'top -bn 1 -u postgres | grep postgres | awk ''{print $1 ":" $2 ":" $9 ":" $10 }''', delimiter ':');
+
+
+COMMENT ON FOREIGN TABLE resources.ps_postgresv2
+  IS 'PG process data to build v_ps_postgrev2 view';
+
+
 
 
 CREATE OR REPLACE VIEW resources.v_ps_postgres AS 
@@ -112,4 +125,21 @@ COMMENT ON VIEW resources.v_ps_postgres
 
 
 
+CREATE OR REPLACE VIEW resources.v_ps_postgresv2 AS 
+ SELECT a.pid,
+    a.datname,
+    ps_postgresv2.cpu_percent,
+    ps_postgresv2.mem_percent,
+    a.client_addr,
+    a.state,
+    a.query,
+    a.backend_type
+   FROM resources.ps_postgresv2,
+    pg_stat_activity a
+  WHERE ps_postgresv2.pid::integer = a.pid ;
+
+ALTER TABLE resources.v_ps_postgresv2
+  OWNER TO postgres;
+COMMENT ON VIEW resources.v_ps_postgresv2
+  IS 'View to show PG process (PID,db_name, CPU_percent, mem_percent, IP, state, query, backend type)';
 

@@ -29,7 +29,7 @@ resources.distribution -- SO distribution
 resources.lscpu        -- CPU characteristics
 resources.meminfo      -- MEM RAM use
 resources.partitions   -- HDD partitions use
-resources.ps_postgres  -- PG process data to build v_ps_postgre view
+resources.ps_postgresv2  -- PG process data to build v_ps_postgrev2 view
 
 
 
@@ -37,7 +37,7 @@ resources.ps_postgres  -- PG process data to build v_ps_postgre view
 
 --VIEWS:
 
-resources.v_ps_postgres-- View to show PG process (PID, CPU_percent, mem_percent, IP, state, query, backend type)
+resources.v_ps_postgresv2-- View to show PG process (PID,db_name, CPU_percent, mem_percent, IP, state, query, backend type)
 
 
 Anthony R. Sotolongo leon
